@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "@/styles/globals.scss";
 import { Loadingscreen } from "@/common/loading/loadingscreen";
 import Header from "@/common/header";
+import CursorSmoke from "@/components/cursor-smoke";
 
 const krishCodeFont = localFont({
   src: [
@@ -37,6 +38,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={krishCodeFont.variable}>
       <body>
+        <CursorSmoke />
         <Loadingscreen />
         <Header />
         {children}
