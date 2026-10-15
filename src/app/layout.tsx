@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import "lenis/dist/lenis.css";
 import "@/styles/globals.scss";
 import { Loadingscreen } from "@/common/loading/loadingscreen";
 import Header from "@/common/header";
 import CursorSmoke from "@/components/cursor-smoke";
+import SmoothScroll from "@/common/smooth-scroll";
 
 const krishCodeFont = localFont({
   src: [
@@ -38,6 +40,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={krishCodeFont.variable}>
       <body>
+        <SmoothScroll />
         <CursorSmoke />
         <Loadingscreen />
         <Header />

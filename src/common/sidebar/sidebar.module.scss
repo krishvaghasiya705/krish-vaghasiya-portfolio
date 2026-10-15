@@ -1,0 +1,134 @@
+.clickoutside {
+  background: #000;
+  height: 100%;
+  left: 0;
+  opacity: 0;
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
+  width: 100%;
+  z-index: 99;
+
+  &.open {
+    opacity: 0.25;
+    pointer-events: all;
+  }
+}
+
+.sidebarmain {
+  align-items: flex-end;
+  backdrop-filter: blur(75px);
+  background: transparent;
+  clip-path: circle(20px at 960px 46px);
+  color: #fff;
+  display: flex;
+  height: 100dvh;
+  justify-content: space-between;
+  flex-direction: column;
+  padding: 91px 80px 80px;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 999;
+  transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+
+  &.open {
+    background: #000000bf;
+    clip-path: circle(72% at 50% 50%);
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .sidebartop {
+    display: flex;
+    align-items: flex-start;
+    gap: 40px;
+
+    .flxitem {
+      width: 360px;
+
+      p {
+        font-size: 28px;
+        color: #ffffff80;
+        letter-spacing: -0.5px;
+        margin-bottom: 10px;
+      }
+
+      .worklink {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+
+        a {
+          padding: 6px 20px 6px 0;
+
+          span {
+            font-size: 48px;
+            color: #fff;
+            transition: all 0.2s ease-out;
+
+            &:hover {
+              opacity: 0.5;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .sidebarbottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+
+    .schedulecall {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0 30px;
+      height: 56px;
+      font-size: 22px;
+      letter-spacing: -0.4px;
+      border-radius: 50px;
+      background-color: transparent;
+      color: #fff;
+      border: 1px solid hsla(0, 0%, 100%, 0.25);
+      transition: 0.3s ease-out;
+
+      &:hover {
+        background-color: #fff;
+        color: #000;
+        border-color: #fff;
+      }
+    }
+
+    .socialLinks {
+      display: flex;
+      align-items: center;
+
+      a {
+        width: 50px;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &:hover {
+          svg {
+            opacity: 1;
+          }
+        }
+
+        svg {
+          width: 24px;
+          height: 24px;
+          opacity: 0.5;
+          transition: all 0.2s ease-out;
+        }
+      }
+    }
+  }
+}

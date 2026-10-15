@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import styles from "./header.module.scss";
 import Link from "next/link";
 import Image from "next/image";
@@ -8,6 +10,8 @@ import Menucloseicon from "../../../public/assets/icons/menucloseicon";
 import Sidebar from "../sidebar";
 
 export default function Header() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   return (
     <>
       <header className={styles.header}>
@@ -20,20 +24,26 @@ export default function Header() {
               <Link href="/">Krish Vaghasiya</Link>
             </div>
             <div className={styles.headermenumain}>
-              <div className={styles.headermenuicon}>
+              <button
+                type="button"
+                className={`${styles.headermenuicon} ${isMenuOpen ? styles.active : ""}`}
+                aria-label={isMenuOpen ? "Close navigation" : "Open navigation"}
+                aria-expanded={isMenuOpen}
+                onClick={() => setIsMenuOpen((open) => !open)}
+              >
                 <div className={styles.headermenuiconopen}>
                   <Menuicon />
                 </div>
                 <div className={styles.headermenuiconclose}>
                   <Menucloseicon />
                 </div>
-              </div>
+              </button>
             </div>
           </div>
         </div>
       </header>
 
-      <Sidebar />
+      <Sidebar isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
     </>
   );
 }
