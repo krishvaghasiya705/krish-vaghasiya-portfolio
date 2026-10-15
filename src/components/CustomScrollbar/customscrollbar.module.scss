@@ -1,0 +1,62 @@
+.scrollbarmain {
+  height: 100dvh;
+  padding: 10px 10px 10px 0;
+  width: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 98;
+  mix-blend-mode: difference;
+
+  .scrollbaroutline {
+    width: 20px;
+    height: 100%;
+    border-radius: 10px;
+    border: 2px solid #ffffff80;
+    position: relative;
+
+    .scrollbarboxmain {
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: calc(100% - 4px);
+      height: calc(100% - 4px);
+      touch-action: none;
+      cursor: pointer;
+
+      .scrollbarbox {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        min-height: 32px;
+        border-radius: 11px;
+        background-color: #ffffff80;
+        transition: background-color 0.2s ease-out;
+        pointer-events: none;
+
+        &:hover {
+          background-color: #ffffffb3;
+        }
+      }
+    }
+  }
+}
+
+.sidebar {
+  position: absolute;
+  top: 91px;
+  right: 40px;
+  bottom: 136px;
+  height: auto;
+  padding: 0;
+  z-index: 1;
+}
+
+.hidden {
+  visibility: hidden;
+  pointer-events: none;
+}

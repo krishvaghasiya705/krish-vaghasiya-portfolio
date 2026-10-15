@@ -7,6 +7,7 @@ import Link from "next/link";
 import Gmailicon from "../../../public/assets/icons/gmailicon";
 import Linkedinicon from "../../../public/assets/icons/linkedinicon";
 import Instagramicon from "../../../public/assets/icons/instagramicon";
+import CustomScrollbar from "@/components/CustomScrollbar";
 
 type SidebarProps = {
   isOpen: boolean;
@@ -15,6 +16,7 @@ type SidebarProps = {
 
 export default function Sidebar({ isOpen, onClose }: SidebarProps) {
   const textRef = useRef<HTMLElement>(null);
+  const sidebarScrollRef = useRef<HTMLDivElement>(null);
   const hasInitialized = useRef(false);
 
   useLayoutEffect(() => {
@@ -99,32 +101,55 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
         aria-hidden={!isOpen}
         inert={!isOpen}
       >
-        <div className={styles.sidebartop}>
+        <div
+          id="sidebar-scroll-content"
+          ref={sidebarScrollRef}
+          className={styles.sidebartop}
+          data-lenis-prevent
+        >
           <div className={styles.flxitem}>
-            <p>Work</p>
+            <p>Design</p>
             <div className={styles.worklink}>
               <Link href={"/"} onClick={onClose}>
-                <span>Work 1</span>
+                <span>UI / UX Design</span>
               </Link>
             </div>
             <div className={styles.worklink}>
               <Link href={"/"} onClick={onClose}>
-                <span>Work 2</span>
+                <span>Figma</span>
               </Link>
             </div>
             <div className={styles.worklink}>
               <Link href={"/"} onClick={onClose}>
-                <span>Work 3</span>
+                <span>Responsive UI</span>
               </Link>
             </div>
             <div className={styles.worklink}>
               <Link href={"/"} onClick={onClose}>
-                <span>Work 4</span>
+                <span>Prototyping</span>
+              </Link>
+            </div>
+          </div>
+          <div className={styles.flxitem}>
+            <p>Development</p>
+            <div className={styles.worklink}>
+              <Link href={"/"} onClick={onClose}>
+                <span>HTML & CSS</span>
               </Link>
             </div>
             <div className={styles.worklink}>
               <Link href={"/"} onClick={onClose}>
-                <span>Work 5</span>
+                <span>JavaScript</span>
+              </Link>
+            </div>
+            <div className={styles.worklink}>
+              <Link href={"/"} onClick={onClose}>
+                <span>React / Next.js</span>
+              </Link>
+            </div>
+            <div className={styles.worklink}>
+              <Link href={"/"} onClick={onClose}>
+                <span>SCSS</span>
               </Link>
             </div>
           </div>
@@ -142,6 +167,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
             </div>
           </div>
         </div>
+        <CustomScrollbar targetRef={sidebarScrollRef} placement="sidebar" />
         <div className={styles.sidebarbottom}>
           <a
             href="https://calendly.com/krishvaghasiya/discovery-call"
