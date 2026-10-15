@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import "./globals.scss";
+import "@/styles/globals.scss";
 import { Loadingscreen } from "@/common/loading/loadingscreen";
+import Header from "@/common/header";
 
 const krishCodeFont = localFont({
   src: [
@@ -37,6 +38,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="en" className={krishCodeFont.variable}>
       <body>
         <Loadingscreen />
+        <Header />
         {children}
       </body>
     </html>

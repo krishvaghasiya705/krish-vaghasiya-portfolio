@@ -1,0 +1,44 @@
+.mousewheel {
+    bottom: 30px;
+    display: flex;
+    height: 48px;
+    justify-content: center;
+    pointer-events: none;
+    position: fixed;
+    right: 40px;
+    width: 30px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: rgb(0, 0, 0);
+    border-image: none;
+    border-radius: 15px;
+    transition: 0.3s ease-out;
+    z-index: 9;
+
+    .wheel {
+        height: 12px;
+        margin-top: 8px;
+        width: 4px;
+        animation: 1.2s linear 0s infinite normal none running MouseWheelanimation;
+        background: rgb(0, 0, 0);
+        border-radius: 2px;
+    }
+
+    @keyframes MouseWheelanimation {
+        0% {
+            transform: scaleY(0.4) translateY(0px);
+        }
+
+        20% {
+            transform: scaleY(1) translateY(0px);
+        }
+
+        60% {
+            transform: scaleY(0.4) translateY(12px);
+        }
+
+        100% {
+            transform: scaleY(0.4) translateY(0px);
+        }
+    }
+}
