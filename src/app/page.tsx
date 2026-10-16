@@ -5,6 +5,10 @@ import UIUXimg1 from "../../public/assets/images/UIUXimg1.jpg";
 import UIUXimg2 from "../../public/assets/images/UIUXimg2.jpg";
 import figmaimg1 from "../../public/assets/images/figmaimg1.jpg";
 import figmaimg2 from "../../public/assets/images/figmaimg2.jpg";
+import ResponsiveUIimg1 from "../../public/assets/images/ResponsiveUIimg1.jpg";
+import ResponsiveUIimg2 from "../../public/assets/images/ResponsiveUIimg2.jpg";
+import Prototypingimg1 from "../../public/assets/images/Prototypingimg1.jpg";
+import Prototypingimg2 from "../../public/assets/images/Prototypingimg2.jpg";
 
 export default function Home() {
   return (
@@ -78,6 +82,73 @@ export default function Home() {
               heading: "Handoff:",
               description:
                 "Organise components, assets, and specifications for a smoother development process.",
+            },
+          ],
+        }}
+      />
+      <Slidesection
+        intro={{
+          eyebrow: "Responsive UI",
+          title: "One experience. Every screen.",
+          description:
+            "I build interfaces that adapt to different screens without losing their visual identity or usability. Every layout, image, and interaction is considered across desktop, tablet, and mobile.",
+          image: ResponsiveUIimg1,
+          imageAlt: "UI/UX design showcase",
+        }}
+        details={{
+          image: ResponsiveUIimg2,
+          imageAlt: "UI/UX design process showcase",
+          items: [
+            {
+              heading: "Adapt:",
+              description: "Reorganise layouts around content and screen size.",
+            },
+            {
+              heading: "Prioritise:",
+              description:
+                "Keep essential information and actions easy to find.",
+            },
+            {
+              heading: "Optimise",
+              description:
+                "Refine spacing, typography, media, and touch interactions.",
+            },
+            {
+              heading: "Validate:",
+              description:
+                "Test real breakpoints, navigation, overflow, and usability.",
+            },
+          ],
+        }}
+      />
+      <Slidesection
+        intro={{
+          eyebrow: "Prototyping",
+          title: "Make ideas move before they become code.",
+          description:
+            "I prototype digital experiences to explore how layouts, transitions, and interactions work together. Prototyping helps communicate the intended behaviour, test ideas early, and reduce uncertainty before implementation.",
+          image: Prototypingimg1,
+          imageAlt: "UI/UX design showcase",
+        }}
+        details={{
+          image: Prototypingimg2,
+          imageAlt: "UI/UX design process showcase",
+          items: [
+            {
+              heading: "Map:",
+              description: "Connect screens into meaningful user journeys.",
+            },
+            {
+              heading: "Interact:",
+              description: "Define clicks, hover states, menus, and navigation behaviour.",
+            },
+            {
+              heading: "Animate:",
+              description: "Explore transitions and motion that support the experience.",
+            },
+            {
+              heading: "Validate:",
+              description: "Identify friction and refine the flow before development.",
             },
           ],
         }}
