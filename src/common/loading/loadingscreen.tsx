@@ -4,31 +4,31 @@ import { useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import styles from "./loadingscreen.module.scss";
 
+const PAGE_READY_TIMEOUT_MS = 2000;
+
 const waitForPageReady = async () => {
   if (typeof window === "undefined") return;
 
-  const images = Array.from(document.images);
-  const imageTasks = images.map((image) => {
-    if (image.complete && image.naturalWidth > 0) {
-      return Promise.resolve();
+  const pendingImages = Array.from(document.images).filter(
+    (image) => image.loading !== "lazy" && !image.complete,
+  );
+  let timeoutId: number | undefined;
+
+  try {
+    await Promise.race([
+      (async () => {
+        await Promise.allSettled(pendingImages.map((image) => image.decode()));
+        await document.fonts.ready;
+      })(),
+      new Promise<void>((resolve) => {
+        timeoutId = window.setTimeout(resolve, PAGE_READY_TIMEOUT_MS);
+      }),
+    ]);
+  } finally {
+    if (timeoutId !== undefined) {
+      window.clearTimeout(timeoutId);
     }
-
-    return new Promise<void>((resolve) => {
-      const handleDone = () => resolve();
-      image.addEventListener("load", handleDone, { once: true });
-      image.addEventListener("error", handleDone, { once: true });
-    });
-  });
-
-  await Promise.allSettled(imageTasks);
-
-  if (document.fonts && "ready" in document.fonts) {
-    await document.fonts.ready;
   }
-
-  await new Promise<void>((resolve) => {
-    requestAnimationFrame(() => resolve());
-  });
 };
 
 export function Loadingscreen() {
