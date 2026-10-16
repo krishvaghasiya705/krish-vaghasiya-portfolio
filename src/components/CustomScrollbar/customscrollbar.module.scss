@@ -1,6 +1,6 @@
 .scrollbarmain {
   height: 100dvh;
-  padding: 10px 10px 10px 0;
+  padding: 10px 0;
   width: 30px;
   display: flex;
   align-items: center;
@@ -16,6 +16,8 @@
     height: 100%;
     border-radius: 10px;
     border: 2px solid #ffffff80;
+    background-color: #626262;
+    backdrop-filter: blur(10px);
     position: relative;
 
     .scrollbarboxmain {
