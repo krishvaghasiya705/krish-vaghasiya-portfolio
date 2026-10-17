@@ -15,6 +15,7 @@ export default function Home() {
     <>
       <Herobanner />
       <Slidesection
+        backgroundGradient="linear-gradient(135deg, #fff0e5 0%, #f8e8ef 50%, #f5ecff 100%)"
         intro={{
           eyebrow: "UI / UX Design",
           title: "Design that feels as good as it works.",
@@ -51,6 +52,7 @@ export default function Home() {
         }}
       />
       <Slidesection
+        backgroundGradient="linear-gradient(135deg, #e8f4ff 0%, #e6efff 50%, #efeaff 100%)"
         intro={{
           eyebrow: "Figma",
           title: "From the first frame to the final pixel.",
@@ -87,6 +89,7 @@ export default function Home() {
         }}
       />
       <Slidesection
+        backgroundGradient="linear-gradient(135deg, #e7f6f1 0%, #eaf3e7 50%, #f5f2dc 100%)"
         intro={{
           eyebrow: "Responsive UI",
           title: "One experience. Every screen.",
@@ -122,6 +125,7 @@ export default function Home() {
         }}
       />
       <Slidesection
+        backgroundGradient="linear-gradient(135deg, #f3eaff 0%, #fce9f0 50%, #fff0e4 100%)"
         intro={{
           eyebrow: "Prototyping",
           title: "Make ideas move before they become code.",

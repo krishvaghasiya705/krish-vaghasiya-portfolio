@@ -14,6 +14,7 @@ export interface SlidesectionItem {
 }
 
 export interface SlidesectionProps {
+  backgroundGradient: string;
   intro: {
     eyebrow: string;
     title: string;
@@ -29,6 +30,7 @@ export interface SlidesectionProps {
 }
 
 export default function Slidesection({
+  backgroundGradient,
   intro,
   details,
 }: SlidesectionProps) {
@@ -75,6 +77,10 @@ export default function Slidesection({
         0,
         secondTextContent.scrollHeight - textContentViewportHeight,
       );
+      const textScrollDuration = textScrollDistance / window.innerHeight;
+      const fillTextElements = Array.from(
+        secondTextContent.querySelectorAll(`.${styles.fillText}`),
+      );
       const viewportHeight = window.innerHeight;
       section.style.height = `${viewportHeight * 4 + textScrollDistance}px`;
 
@@ -116,8 +122,28 @@ export default function Slidesection({
           .to(secondTextContent, {
             y: -textScrollDistance,
             ease: "none",
-            duration: textScrollDistance / viewportHeight,
+            duration: textScrollDuration,
           });
+
+        if (fillTextElements.length > 0) {
+          const fillTweenDuration = Math.min(
+            0.3,
+            textScrollDuration / fillTextElements.length,
+          );
+
+          timeline.to(
+            fillTextElements,
+            {
+              backgroundPosition: "0% 0%",
+              duration: fillTweenDuration,
+              ease: "none",
+              stagger: {
+                amount: Math.max(0, textScrollDuration - fillTweenDuration),
+              },
+            },
+            "<",
+          );
+        }
       }, section);
 
       ScrollTrigger.refresh();
@@ -140,7 +166,11 @@ export default function Slidesection({
   }, [details.items]);
 
   return (
-    <div ref={sectionRef} className={styles.slidesectionmain}>
+    <div
+      ref={sectionRef}
+      className={styles.slidesectionmain}
+      style={{ background: backgroundGradient }}
+    >
       <div ref={trackRef} className={styles.slidesectiontrack}>
         <div className={styles.slidesectionfirstgrdmain}>
           <div className={styles.grditemsone}>
@@ -195,8 +225,8 @@ export default function Slidesection({
                   key={`${item.heading}-${index}`}
                   className={styles.grditemstwoinner}
                 >
-                  <h2>{item.heading}</h2>
-                  <h3>{item.description}</h3>
+                  <h2 className={styles.fillText}>{item.heading}</h2>
+                  <h3 className={styles.fillText}>{item.description}</h3>
                 </div>
               ))}
             </div>
