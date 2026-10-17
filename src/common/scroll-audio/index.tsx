@@ -2,8 +2,8 @@
 
 import { useEffect, useRef } from "react";
 
-const SCROLL_IDLE_DELAY = 180;
 const FADE_DURATION = 250;
+const AUDIO_URL = "/WE%20ON%20GO.mp3";
 
 export default function ScrollAudio() {
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -15,12 +15,36 @@ export default function ScrollAudio() {
       return;
     }
 
-    let idleTimer: number | undefined;
     let fadeFrame = 0;
     let playRequested = false;
     let isScrolling = false;
     let fadeTarget: number | null = null;
     let autoplayWarningShown = false;
+    const abortController = new AbortController();
+    let audioObjectUrl: string | undefined;
+    let isAudioReady = false;
+
+    const root = document.documentElement;
+    delete root.dataset.scrollAudioReady;
+    delete root.dataset.scrollAudioFailed;
+
+    const signalAudioReady = (failed = false) => {
+      isAudioReady = !failed;
+      root.dataset.scrollAudioReady = String(!failed);
+      root.dataset.scrollAudioFailed = String(failed);
+      window.dispatchEvent(new Event("scroll-audio-ready"));
+    };
+
+    const handleAudioCanPlay = () => {
+      signalAudioReady();
+      if (isScrolling) {
+        requestPlayback();
+      }
+    };
+    const handleAudioError = () => {
+      console.error("Unable to load scroll audio.", audio.error);
+      signalAudioReady(true);
+    };
 
     const fadeTo = (targetVolume: number, pauseWhenDone: boolean) => {
       if (
@@ -58,7 +82,7 @@ export default function ScrollAudio() {
     };
 
     const requestPlayback = () => {
-      if (!audio.paused || playRequested) {
+      if (!isAudioReady || !audio.paused || playRequested) {
         return;
       }
 
@@ -91,83 +115,73 @@ export default function ScrollAudio() {
       );
     };
 
-    const schedulePause = () => {
-      if (idleTimer !== undefined) {
-        window.clearTimeout(idleTimer);
+    const handleLenisScrollState = (event: Event) => {
+      const { isScrolling: lenisIsScrolling } = (
+        event as CustomEvent<{ isScrolling: boolean }>
+      ).detail;
+
+      if (lenisIsScrolling) {
+        isScrolling = true;
+        requestPlayback();
+        fadeTo(1, false);
+        return;
       }
 
-      idleTimer = window.setTimeout(() => {
-        isScrolling = false;
-        fadeTo(0, true);
-      }, SCROLL_IDLE_DELAY);
-    };
-
-    const handleScroll = () => {
-      isScrolling = true;
-      requestPlayback();
-      fadeTo(1, false);
-      schedulePause();
-    };
-
-    const handleScrollIntent = () => {
-      isScrolling = true;
-      requestPlayback();
-      schedulePause();
-    };
-
-    const handlePointerDown = (event: PointerEvent) => {
-      if (
-        event.target instanceof Element &&
-        event.target.closest('[role="scrollbar"]')
-      ) {
-        handleScrollIntent();
-      }
-    };
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (
-        [
-          "ArrowDown",
-          "ArrowUp",
-          "PageDown",
-          "PageUp",
-          "Home",
-          "End",
-          " ",
-        ].includes(event.key)
-      ) {
-        handleScrollIntent();
-      }
+      isScrolling = false;
+      fadeTo(0, true);
     };
 
     audio.volume = 0;
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    window.addEventListener("wheel", handleScrollIntent, { passive: true });
-    window.addEventListener("touchmove", handleScrollIntent, { passive: true });
-    window.addEventListener("pointerdown", handlePointerDown, { passive: true });
-    window.addEventListener("keydown", handleKeyDown);
+    audio.addEventListener("canplay", handleAudioCanPlay, { once: true });
+    audio.addEventListener("error", handleAudioError, { once: true });
+    window.addEventListener("lenis-scroll-state", handleLenisScrollState);
+
+    void (async () => {
+      try {
+        const response = await fetch(AUDIO_URL, {
+          signal: abortController.signal,
+          cache: "force-cache",
+        });
+        if (!response.ok) {
+          throw new Error(
+            `Audio request failed with status ${response.status}`,
+          );
+        }
+
+        const audioBlob = await response.blob();
+        audioObjectUrl = URL.createObjectURL(audioBlob);
+        audio.src = audioObjectUrl;
+        audio.load();
+      } catch (error) {
+        if (abortController.signal.aborted) {
+          return;
+        }
+        console.error("Unable to download scroll audio.", error);
+        signalAudioReady(true);
+      }
+    })();
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("wheel", handleScrollIntent);
-      window.removeEventListener("touchmove", handleScrollIntent);
-      window.removeEventListener("pointerdown", handlePointerDown);
-      window.removeEventListener("keydown", handleKeyDown);
+      abortController.abort();
+      window.removeEventListener("lenis-scroll-state", handleLenisScrollState);
+      audio.removeEventListener("canplay", handleAudioCanPlay);
+      audio.removeEventListener("error", handleAudioError);
 
-      if (idleTimer !== undefined) {
-        window.clearTimeout(idleTimer);
-      }
       cancelAnimationFrame(fadeFrame);
       audio.pause();
+      if (audioObjectUrl) {
+        URL.revokeObjectURL(audioObjectUrl);
+      }
+      delete root.dataset.scrollAudioReady;
+      delete root.dataset.scrollAudioFailed;
     };
   }, []);
 
   return (
     <audio
       ref={audioRef}
-      src="/WE%20ON%20GO.mp3"
       loop
-      preload="metadata"
+      preload="none"
       aria-hidden="true"
     />
   );

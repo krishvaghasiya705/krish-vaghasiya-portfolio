@@ -14,6 +14,19 @@ export function useLenis() {
     });
 
     lenisRef.current = lenis;
+    let previousScroll = lenis.scroll;
+    const removeScrollListener = lenis.on("scroll", (instance) => {
+      const hasMoved = instance.scroll !== previousScroll;
+      previousScroll = instance.scroll;
+
+      window.dispatchEvent(
+        new CustomEvent("lenis-scroll-state", {
+          detail: {
+            isScrolling: Boolean(instance.isScrolling) && hasMoved,
+          },
+        }),
+      );
+    });
 
     function raf(time: number) {
       lenis.raf(time);
@@ -24,6 +37,7 @@ export function useLenis() {
 
     return () => {
       cancelAnimationFrame(rafId);
+      removeScrollListener();
       lenis.destroy();
       lenisRef.current = null;
     };

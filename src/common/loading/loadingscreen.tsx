@@ -6,6 +6,35 @@ import styles from "./loadingscreen.module.scss";
 
 const PAGE_READY_TIMEOUT_MS = 2000;
 
+const waitForScrollAudio = () => {
+  const root = document.documentElement;
+
+  if (
+    root.dataset.scrollAudioReady === "true" ||
+    root.dataset.scrollAudioFailed === "true"
+  ) {
+    return Promise.resolve();
+  }
+
+  return new Promise<void>((resolve) => {
+    const handleAudioReady = () => {
+      window.removeEventListener("scroll-audio-ready", handleAudioReady);
+      resolve();
+    };
+
+    window.addEventListener("scroll-audio-ready", handleAudioReady, {
+      once: true,
+    });
+
+    if (
+      root.dataset.scrollAudioReady === "true" ||
+      root.dataset.scrollAudioFailed === "true"
+    ) {
+      handleAudioReady();
+    }
+  });
+};
+
 const waitForPageReady = async () => {
   if (typeof window === "undefined") return;
 
@@ -51,6 +80,7 @@ export function Loadingscreen() {
     const runLoader = async () => {
       try {
         await waitForPageReady();
+        await waitForScrollAudio();
       } catch (error) {
         console.warn("Preloader wait failed, continuing reveal.", error);
       } finally {
