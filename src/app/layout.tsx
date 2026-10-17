@@ -6,6 +6,7 @@ import { Loadingscreen } from "@/common/loading/loadingscreen";
 import Header from "@/common/header";
 import CursorSmoke from "@/components/cursor-smoke";
 import SmoothScroll from "@/common/smooth-scroll";
+import ScrollAudio from "@/common/scroll-audio";
 import Customscrollbar from "@/components/CustomScrollbar";
 
 const krishCodeFont = localFont({
@@ -47,6 +48,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body>
         <Customscrollbar />
         <SmoothScroll />
+        <ScrollAudio />
         <CursorSmoke />
         <Loadingscreen />
         <Header />
