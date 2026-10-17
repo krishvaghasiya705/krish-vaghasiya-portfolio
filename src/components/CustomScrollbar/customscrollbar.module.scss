@@ -8,7 +8,7 @@
   position: fixed;
   top: 0;
   right: 0;
-  z-index: 98;
+  z-index: 99999;
   mix-blend-mode: difference;
 
   .scrollbaroutline {
@@ -27,7 +27,11 @@
       width: calc(100% - 4px);
       height: calc(100% - 4px);
       touch-action: none;
-      cursor: pointer;
+      cursor: grab;
+
+      &:active {
+        cursor: grabbing;
+      }
 
       .scrollbarbox {
         position: absolute;

@@ -9,6 +9,7 @@ import {
   type PointerEvent,
   type RefObject,
 } from "react";
+import { scrollPageToLenis } from "@/hooks/useLenis";
 
 type ScrollbarMetrics = {
   scrollTop: number;
@@ -28,10 +29,6 @@ const initialMetrics: ScrollbarMetrics = {
   thumbSize: 0,
   trackSize: 0,
 };
-
-function setElementScrollTop(element: HTMLElement, scrollTop: number) {
-  element.scrollTop = scrollTop;
-}
 
 export function useCustomScrollbar(
   targetRef?: RefObject<HTMLElement | null>,
@@ -66,11 +63,17 @@ export function useCustomScrollbar(
   }, [targetRef]);
 
   const scrollTo = useCallback(
-    (scrollTop: number) => {
+    (scrollTop: number, immediate = false) => {
       const target = targetRef?.current;
       if (target) {
-        setElementScrollTop(target, scrollTop);
-      } else {
+        target.scrollTo({
+          top: scrollTop,
+          behavior: immediate ? "instant" : "smooth",
+        });
+        return;
+      }
+
+      if (!scrollPageToLenis(scrollTop, immediate)) {
         window.scrollTo(0, scrollTop);
       }
     },
@@ -161,7 +164,7 @@ export function useCustomScrollbar(
         thumbTravel,
         Math.max(0, event.clientY - trackRect.top - drag.offsetY),
       );
-      scrollTo((nextThumbTop / thumbTravel) * metrics.maxScroll);
+      scrollTo((nextThumbTop / thumbTravel) * metrics.maxScroll, true);
     },
     [metrics, scrollTo],
   );

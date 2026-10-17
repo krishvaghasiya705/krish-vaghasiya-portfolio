@@ -3,6 +3,29 @@
 import { useEffect, useRef } from "react";
 import Lenis from "lenis";
 
+let activeLenis: Lenis | null = null;
+
+export function scrollToLenis(target: string) {
+  if (!activeLenis) {
+    return false;
+  }
+
+  activeLenis.scrollTo(target);
+  return true;
+}
+
+export function scrollPageToLenis(
+  scrollTop: number,
+  immediate = false,
+) {
+  if (!activeLenis) {
+    return false;
+  }
+
+  activeLenis.scrollTo(scrollTop, { immediate });
+  return true;
+}
+
 export function useLenis() {
   const lenisRef = useRef<Lenis | null>(null);
 
@@ -14,6 +37,7 @@ export function useLenis() {
     });
 
     lenisRef.current = lenis;
+    activeLenis = lenis;
     let previousScroll = lenis.scroll;
     const removeScrollListener = lenis.on("scroll", (instance) => {
       const hasMoved = instance.scroll !== previousScroll;
@@ -40,6 +64,9 @@ export function useLenis() {
       removeScrollListener();
       lenis.destroy();
       lenisRef.current = null;
+      if (activeLenis === lenis) {
+        activeLenis = null;
+      }
     };
   }, []);
 

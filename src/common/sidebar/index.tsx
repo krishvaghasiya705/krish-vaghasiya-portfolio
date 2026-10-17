@@ -4,6 +4,7 @@ import React, { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import styles from "./sidebar.module.scss";
 import Link from "next/link";
+import { scrollToLenis } from "@/hooks/useLenis";
 import Gmailicon from "../../../public/assets/icons/gmailicon";
 import Linkedinicon from "../../../public/assets/icons/linkedinicon";
 import Instagramicon from "../../../public/assets/icons/instagramicon";
@@ -18,6 +19,34 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
   const textRef = useRef<HTMLElement>(null);
   const sidebarScrollRef = useRef<HTMLDivElement>(null);
   const hasInitialized = useRef(false);
+
+  const handleWorkLinkClick = (
+    event: React.MouseEvent<HTMLAnchorElement>,
+    sectionId: string,
+  ) => {
+    onClose();
+
+    if (
+      event.defaultPrevented ||
+      event.button !== 0 ||
+      event.metaKey ||
+      event.ctrlKey ||
+      event.shiftKey ||
+      event.altKey ||
+      window.location.pathname !== "/"
+    ) {
+      return;
+    }
+
+    event.preventDefault();
+    requestAnimationFrame(() => {
+      if (!scrollToLenis(`#${sectionId}`)) {
+        document
+          .getElementById(sectionId)
+          ?.scrollIntoView({ behavior: "smooth" });
+      }
+    });
+  };
 
   useLayoutEffect(() => {
     if (!isOpen) {
@@ -110,22 +139,40 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
           <div className={styles.flxitem}>
             <p>Design</p>
             <div className={styles.worklink}>
-              <Link href={"/"} onClick={onClose}>
+              <Link
+                href="/#ui-ux-design"
+                onClick={(event) =>
+                  handleWorkLinkClick(event, "ui-ux-design")
+                }
+              >
                 <span>UI / UX Design</span>
               </Link>
             </div>
             <div className={styles.worklink}>
-              <Link href={"/"} onClick={onClose}>
+              <Link
+                href="/#figma"
+                onClick={(event) => handleWorkLinkClick(event, "figma")}
+              >
                 <span>Figma</span>
               </Link>
             </div>
             <div className={styles.worklink}>
-              <Link href={"/"} onClick={onClose}>
+              <Link
+                href="/#responsive-ui"
+                onClick={(event) =>
+                  handleWorkLinkClick(event, "responsive-ui")
+                }
+              >
                 <span>Responsive UI</span>
               </Link>
             </div>
             <div className={styles.worklink}>
-              <Link href={"/"} onClick={onClose}>
+              <Link
+                href="/#prototyping"
+                onClick={(event) =>
+                  handleWorkLinkClick(event, "prototyping")
+                }
+              >
                 <span>Prototyping</span>
               </Link>
             </div>

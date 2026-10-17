@@ -14,6 +14,7 @@ export interface SlidesectionItem {
 }
 
 export interface SlidesectionProps {
+  id: string;
   backgroundGradient: string;
   intro: {
     eyebrow: string;
@@ -30,6 +31,7 @@ export interface SlidesectionProps {
 }
 
 export default function Slidesection({
+  id,
   backgroundGradient,
   intro,
   details,
@@ -168,6 +170,7 @@ export default function Slidesection({
   return (
     <div
       ref={sectionRef}
+      id={id}
       className={styles.slidesectionmain}
       style={{ background: backgroundGradient }}
     >

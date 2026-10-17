@@ -8,6 +8,7 @@ import passportsize from "../../../public/assets/images/passport-size.png";
 import Menuicon from "../../../public/assets/icons/menuicon";
 import Menucloseicon from "../../../public/assets/icons/menucloseicon";
 import Sidebar from "../sidebar";
+import { scrollPageToLenis } from "@/hooks/useLenis";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -21,7 +22,21 @@ export default function Header() {
               <div className={styles.headerimg}>
                 <Image src={passportsize} alt="Krish Vaghasiya" />
               </div>
-              <Link href="/">Krish Vaghasiya</Link>
+              <Link
+                href="/"
+                onClick={(event) => {
+                  if (window.location.pathname !== "/") {
+                    return;
+                  }
+
+                  event.preventDefault();
+                  if (!scrollPageToLenis(0)) {
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  }
+                }}
+              >
+                Krish Vaghasiya
+              </Link>
             </div>
             <div className={styles.headermenumain}>
               <button
