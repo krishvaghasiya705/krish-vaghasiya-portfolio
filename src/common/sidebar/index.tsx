@@ -9,6 +9,7 @@ import Gmailicon from "../../../public/assets/icons/gmailicon";
 import Linkedinicon from "../../../public/assets/icons/linkedinicon";
 import Instagramicon from "../../../public/assets/icons/instagramicon";
 import CustomScrollbar from "@/components/CustomScrollbar";
+import Githubicon from "../../../public/assets/icons/githubicon";
 
 type SidebarProps = {
   isOpen: boolean;
@@ -141,9 +142,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
             <div className={styles.worklink}>
               <Link
                 href="/#ui-ux-design"
-                onClick={(event) =>
-                  handleWorkLinkClick(event, "ui-ux-design")
-                }
+                onClick={(event) => handleWorkLinkClick(event, "ui-ux-design")}
               >
                 <span>UI / UX Design</span>
               </Link>
@@ -159,9 +158,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
             <div className={styles.worklink}>
               <Link
                 href="/#responsive-ui"
-                onClick={(event) =>
-                  handleWorkLinkClick(event, "responsive-ui")
-                }
+                onClick={(event) => handleWorkLinkClick(event, "responsive-ui")}
               >
                 <span>Responsive UI</span>
               </Link>
@@ -169,9 +166,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
             <div className={styles.worklink}>
               <Link
                 href="/#prototyping"
-                onClick={(event) =>
-                  handleWorkLinkClick(event, "prototyping")
-                }
+                onClick={(event) => handleWorkLinkClick(event, "prototyping")}
               >
                 <span>Prototyping</span>
               </Link>
@@ -232,6 +227,13 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
               onClick={onClose}
             >
               <Gmailicon />
+            </a>
+            <a
+              href="https://github.com/krishvaghasiya705"
+              target="_blank"
+              onClick={onClose}
+            >
+              <Githubicon />
             </a>
             <a href={"/"} target="_blank" onClick={onClose}>
               <Linkedinicon />

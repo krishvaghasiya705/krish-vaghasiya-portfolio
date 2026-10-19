@@ -1,0 +1,22 @@
+.customcursormain {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999999;
+  mix-blend-mode: difference;
+  pointer-events: none;
+
+  .customcursor {
+    width: 70px;
+    height: 70px;
+    background-color: #fff;
+    visibility: hidden;
+    will-change: transform, opacity;
+  }
+}
+
+@media (pointer: coarse) {
+  .customcursormain {
+    display: none;
+  }
+}

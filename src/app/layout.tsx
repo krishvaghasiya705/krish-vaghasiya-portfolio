@@ -8,6 +8,7 @@ import CursorSmoke from "@/components/cursor-smoke";
 import SmoothScroll from "@/common/smooth-scroll";
 import ScrollAudio from "@/common/scroll-audio";
 import Customscrollbar from "@/components/CustomScrollbar";
+import Customcursor from "@/components/customcursor";
 
 const krishCodeFont = localFont({
   src: [
@@ -29,7 +30,8 @@ const krishCodeFont = localFont({
 
 export const metadata: Metadata = {
   title: "Krish Vaghasiya — Web Designer & Developer",
-  description: "I'm Krish Vaghasiya, a web designer and developer crafting distinctive digital experiences through thoughtful UI/UX design, modern web technologies, and clean, responsive interfaces.",
+  description:
+    "I'm Krish Vaghasiya, a web designer and developer crafting distinctive digital experiences through thoughtful UI/UX design, modern web technologies, and clean, responsive interfaces.",
   icons: {
     icon: "/logo/favicon.ico",
     shortcut: "/logo/favicon.ico",
@@ -40,17 +42,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html
-      id="page-scroll-target"
-      lang="en"
-      className={krishCodeFont.variable}
-    >
+    <html id="page-scroll-target" lang="en" className={krishCodeFont.variable}>
       <body>
+        <Loadingscreen />
         <Customscrollbar />
         <SmoothScroll />
         <ScrollAudio />
         <CursorSmoke />
-        <Loadingscreen />
+        <Customcursor />
         <Header />
         {children}
       </body>

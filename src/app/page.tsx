@@ -9,6 +9,7 @@ import ResponsiveUIimg1 from "../../public/assets/images/ResponsiveUIimg1.jpg";
 import ResponsiveUIimg2 from "../../public/assets/images/ResponsiveUIimg2.jpg";
 import Prototypingimg1 from "../../public/assets/images/Prototypingimg1.jpg";
 import Prototypingimg2 from "../../public/assets/images/Prototypingimg2.jpg";
+import Development from "@/components/developments";
 
 export default function Home() {
   return (
@@ -148,19 +149,23 @@ export default function Home() {
             },
             {
               heading: "Interact:",
-              description: "Define clicks, hover states, menus, and navigation behaviour.",
+              description:
+                "Define clicks, hover states, menus, and navigation behaviour.",
             },
             {
               heading: "Animate:",
-              description: "Explore transitions and motion that support the experience.",
+              description:
+                "Explore transitions and motion that support the experience.",
             },
             {
               heading: "Validate:",
-              description: "Identify friction and refine the flow before development.",
+              description:
+                "Identify friction and refine the flow before development.",
             },
           ],
         }}
       />
+      <Development />
     </>
   );
 }
