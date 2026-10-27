@@ -7,14 +7,14 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import styles from "./herobanner.module.scss";
 import MouseWheel from "@/components/mousewheel";
-import HeroBannerImage from "../../../../public/assets/images/herobanner-portrait.png";
+import HeroBannerImage from "../../../../public/assets/images/krish-vaghasiya-hero.jpg";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Herobanner() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const imageRef = useRef<HTMLImageElement | null>(null);
-  const headingRef = useRef<HTMLHeadingElement | null>(null);
+  const headingRef = useRef<HTMLDivElement | null>(null);
   const mouseWheelRef = useRef<HTMLDivElement | null>(null);
 
   useLayoutEffect(() => {
@@ -252,13 +252,16 @@ export default function Herobanner() {
   return (
     <section ref={sectionRef} className={styles.herobanner}>
       <div className={styles.herobannerimg}>
-        <h1 ref={headingRef} className={styles.heading}>
-          <span>Hello, I’m&nbsp;</span> <u>Krish Vaghasiya</u>.{" "}
+        <div ref={headingRef} className={styles.heading}>
+          <h1>
+            <span>Hello, I’m&nbsp;</span> <u>Krish Vaghasiya</u>.
+          </h1>{" "}
           <p>
-            &nbsp;A web designer and developer crafting thoughtful interfaces,
-            interactive experiences, and digital products.
+            A web designer and frontend developer based in Surat, Gujarat,
+            crafting thoughtful interfaces, interactive experiences, and
+            digital products.
           </p>
-        </h1>
+        </div>
 
         <Image
           ref={imageRef}

@@ -11,10 +11,66 @@ import Prototypingimg1 from "../../public/assets/images/Prototypingimg1.jpg";
 import Prototypingimg2 from "../../public/assets/images/Prototypingimg2.jpg";
 import Development from "@/components/developments";
 
+const siteUrl = "https://krish-vaghasiya.netlify.app";
+const profileId = `${siteUrl}/#person`;
+
+const profileJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": `${siteUrl}/#website`,
+      url: siteUrl,
+      name: "Krish Vaghasiya",
+      inLanguage: "en-IN",
+      publisher: { "@id": profileId },
+    },
+    {
+      "@type": "ProfilePage",
+      "@id": `${siteUrl}/#profile`,
+      url: siteUrl,
+      name: "Krish Vaghasiya | Web Designer and Frontend Developer",
+      isPartOf: { "@id": `${siteUrl}/#website` },
+      mainEntity: { "@id": profileId },
+      inLanguage: "en-IN",
+    },
+    {
+      "@type": "Person",
+      "@id": profileId,
+      name: "Krish Vaghasiya",
+      url: siteUrl,
+      jobTitle: "Web Designer and Frontend Developer",
+      image: `${siteUrl}/assets/images/krish-vaghasiya-profile.jpg`,
+      homeLocation: {
+        "@type": "Place",
+        name: "Surat, Gujarat, India",
+      },
+      knowsAbout: [
+        "Web design",
+        "Frontend development",
+        "UI/UX design",
+        "Responsive web design",
+      ],
+      sameAs: [
+        "https://www.linkedin.com/in/krish-vaghasiya-b0a150366/",
+        "https://github.com/krishvaghasiya705",
+        "https://x.com/krish_vagh19933",
+        "https://youtube.com/@krish-tv-705",
+      ],
+    },
+  ],
+};
+
 export default function Home() {
   return (
     <>
-      <Herobanner />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(profileJsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
+        <Herobanner />
       <Slidesection
         id="ui-ux-design"
         backgroundGradient="linear-gradient(135deg, #fff0e5 0%, #f8e8ef 50%, #f5ecff 100%)"
@@ -62,11 +118,11 @@ export default function Home() {
           description:
             "I use Figma to transform ideas into structured, high-fidelity designs. From wireframes and reusable components to interactive prototypes, I build design systems that make the journey from concept to development more consistent.",
           image: figmaimg1,
-          imageAlt: "UI/UX design showcase",
+          imageAlt: "Figma interface design example",
         }}
         details={{
           image: figmaimg2,
-          imageAlt: "UI/UX design process showcase",
+          imageAlt: "Figma design workflow example",
           items: [
             {
               heading: "Wireframes:",
@@ -100,11 +156,11 @@ export default function Home() {
           description:
             "I build interfaces that adapt to different screens without losing their visual identity or usability. Every layout, image, and interaction is considered across desktop, tablet, and mobile.",
           image: ResponsiveUIimg1,
-          imageAlt: "UI/UX design showcase",
+          imageAlt: "Responsive interface design example",
         }}
         details={{
           image: ResponsiveUIimg2,
-          imageAlt: "UI/UX design process showcase",
+          imageAlt: "Responsive design process example",
           items: [
             {
               heading: "Adapt:",
@@ -137,11 +193,11 @@ export default function Home() {
           description:
             "I prototype digital experiences to explore how layouts, transitions, and interactions work together. Prototyping helps communicate the intended behaviour, test ideas early, and reduce uncertainty before implementation.",
           image: Prototypingimg1,
-          imageAlt: "UI/UX design showcase",
+          imageAlt: "Digital interface prototype example",
         }}
         details={{
           image: Prototypingimg2,
-          imageAlt: "UI/UX design process showcase",
+          imageAlt: "Digital prototyping workflow example",
           items: [
             {
               heading: "Map:",

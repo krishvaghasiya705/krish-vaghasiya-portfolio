@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import styles from "./header.module.scss";
 import Link from "next/link";
 import Image from "next/image";
-import passportsize from "../../../public/assets/images/passport-size.png";
+import passportsize from "../../../public/assets/images/krish-vaghasiya-profile.jpg";
 import Menuicon from "../../../public/assets/icons/menuicon";
 import Menucloseicon from "../../../public/assets/icons/menucloseicon";
 import Sidebar from "../sidebar";

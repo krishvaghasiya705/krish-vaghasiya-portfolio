@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "lenis/dist/lenis.css";
 import "@/styles/globals.scss";
@@ -29,15 +29,71 @@ const krishCodeFont = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Krish Vaghasiya — Web Designer & Developer",
+  metadataBase: new URL("https://krish-vaghasiya.netlify.app"),
+  title: "Krish Vaghasiya | Web Designer & Frontend Developer Portfolio",
   description:
-    "I'm Krish Vaghasiya, a web designer and developer crafting distinctive digital experiences through thoughtful UI/UX design, modern web technologies, and clean, responsive interfaces.",
+    "Krish Vaghasiya is a web designer and frontend developer in Surat, Gujarat, India, creating thoughtful UI/UX designs, responsive interfaces, and digital experiences.",
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+    },
+  },
+  authors: [
+    {
+      name: "Krish Vaghasiya",
+      url: "https://krish-vaghasiya.netlify.app",
+    },
+  ],
+  creator: "Krish Vaghasiya",
+  openGraph: {
+    type: "website",
+    url: "/",
+    siteName: "Krish Vaghasiya",
+    title: "Krish Vaghasiya | Web Designer & Frontend Developer Portfolio",
+    description:
+      "Explore the portfolio of Krish Vaghasiya, a web designer and frontend developer based in Surat, Gujarat, India.",
+    locale: "en_IN",
+    images: [
+      {
+        url: "/assets/images/krish-vaghasiya-profile.jpg",
+        width: 941,
+        height: 941,
+        alt: "Krish Vaghasiya, web designer and frontend developer",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Krish Vaghasiya | Web Designer & Frontend Developer Portfolio",
+    description:
+      "Explore the portfolio of Krish Vaghasiya, a web designer and frontend developer based in Surat, Gujarat, India.",
+    images: [
+      {
+        url: "/assets/images/krish-vaghasiya-profile.jpg",
+        alt: "Krish Vaghasiya, web designer and frontend developer",
+      },
+    ],
+  },
+  verification: {
+    google: "04RlWCaA-OOL0IkS6zkJ7h0TT4J96ek5DnCcxXo1QPU",
+  },
   icons: {
     icon: "/logo/favicon.ico",
     shortcut: "/logo/favicon.ico",
     apple: "/logo/apple-touch-icon.png",
   },
   manifest: "/logo/site.webmanifest",
+};
+
+export const viewport: Viewport = {
+  themeColor: "#ffffff",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -51,7 +107,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <CursorSmoke />
         <Customcursor />
         <Header />
-        {children}
+        <main>{children}</main>
       </body>
     </html>
   );

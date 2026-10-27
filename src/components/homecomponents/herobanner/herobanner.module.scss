@@ -31,6 +31,14 @@
 
       will-change: left, transform;
 
+      h1,
+      p {
+        display: inline;
+        margin: 0;
+        padding: 0;
+        font: inherit;
+      }
+
       span {
         display: inline;
       }
@@ -44,10 +52,6 @@
       }
 
       p {
-        display: inline;
-        margin: 0;
-        padding: 0;
-        font: inherit;
         white-space: nowrap;
       }
     }

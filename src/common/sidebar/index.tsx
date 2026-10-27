@@ -235,7 +235,13 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
             >
               <Githubicon />
             </a>
-            <a href={"/"} target="_blank" onClick={onClose}>
+            <a
+              href="https://www.linkedin.com/in/krish-vaghasiya-b0a150366/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+              onClick={onClose}
+            >
               <Linkedinicon />
             </a>
             <a href={"/"} target="_blank" onClick={onClose}>
