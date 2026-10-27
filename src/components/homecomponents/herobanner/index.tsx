@@ -253,14 +253,13 @@ export default function Herobanner() {
     <section ref={sectionRef} className={styles.herobanner}>
       <div className={styles.herobannerimg}>
         <div ref={headingRef} className={styles.heading}>
-          <h1>
-            <span>Hello, I’m&nbsp;</span> <u>Krish Vaghasiya</u>.
-          </h1>{" "}
-          <p>
-            A web designer and frontend developer based in Surat, Gujarat,
-            crafting thoughtful interfaces, interactive experiences, and
-            digital products.
-          </p>
+          <h1 ref={headingRef} className={styles.heading}>
+            <span>Hello, I’m&nbsp;</span> <u>Krish Vaghasiya</u>.{" "}
+            <p>
+              &nbsp;A web designer and developer crafting thoughtful interfaces,
+              interactive experiences, and digital products.
+            </p>
+          </h1>
         </div>
 
         <Image
